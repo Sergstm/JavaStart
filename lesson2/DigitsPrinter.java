@@ -1,6 +1,9 @@
+package homework.les2;
+
 public class DigitsPrinter {
 
     public static void main(String[] args) {
+
         int n = 13579;  // Input: any positive number
 
         int first = n % 100000/10000;
@@ -15,5 +18,4 @@ public class DigitsPrinter {
         System.out.println(fourth);
         System.out.println(fifth);
     }
-
 }
