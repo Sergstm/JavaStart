@@ -3,11 +3,15 @@ package homework.les6.level2;
 public class PascalTriangleCreator {
     public static void main(String[] args) {
 
-        int n = 7;
+        int n = -7;
         createPascalTriangle(n);
     }
 
     private static void createPascalTriangle(int n) {
+
+        if (n < 0) {
+            throw new IllegalArgumentException("Wrong input data");
+        }
 
         n++;
         int[][] matrix = new int[n][n];

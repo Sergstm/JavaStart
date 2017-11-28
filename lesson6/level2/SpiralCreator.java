@@ -11,6 +11,10 @@ public class SpiralCreator {
 
     private static void createSpiral(int rows, int cols) {
 
+        if (rows < 0 || cols < 0) {
+            throw new IllegalArgumentException("Wrong input data");
+        }
+
         int[][] matrix = new int[rows][cols];
         int up = 0;
         int right = cols;
