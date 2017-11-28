@@ -34,6 +34,10 @@ public class SpiralCreator {
             counter--;
             col--;
 
+            if (counter >= rows * cols) {
+                continue;
+            }
+
             down -= 1;
             for (; row <= down; row++) {
                 matrix[row][col] = counter;
@@ -42,6 +46,10 @@ public class SpiralCreator {
             counter--;
             row--;
 
+            if (counter >= rows * cols) {
+                continue;
+            }
+
             left += 1;
             for (; col >= left; col--) {
                 matrix[row][col] = counter;
@@ -49,6 +57,10 @@ public class SpiralCreator {
             }
             counter--;
             col++;
+
+            if (counter >= rows * cols) {
+                continue;
+            }
 
             up += 1;
             for (; row >= up; row--) {
