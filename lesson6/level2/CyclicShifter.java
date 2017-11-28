@@ -1,7 +1,5 @@
 package homework.les6.level2;
 
-import java.util.Arrays;
-
 public class CyclicShifter {
     public static void main(String[] args) {
 
