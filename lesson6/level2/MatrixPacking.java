@@ -1,5 +1,7 @@
 package homework.les6.level2;
 
+import java.util.Arrays;
+
 public class MatrixPacking {
     public static void main(String[] args) {
 
@@ -7,6 +9,11 @@ public class MatrixPacking {
                 {1, 2, 3},
                 {0, 0, 0},
                 {4, 5, 6}
+        };
+        int[][] sourceMatrix1 = {
+                {1, 0, 3},
+                {0, 0, 0},
+                {4, 0, 6}
         };
 
         packMatrix(sourceMatrix);
@@ -22,40 +29,72 @@ public class MatrixPacking {
                 numCol = col + 1;
             }
         }
-//        System.out.println("row = " + numRow); System.out.println("col = " + numCol);
         int[][] matrixOut = new int[numRow][numCol];
+        int[][] finalMatrix = new int[numRow][numCol];
 
-        int count = 0;
+        int colPos = 0;
+        int colZeroSum = 0;
         for (int row = 0; row < numRow; row++) {
-            for (int col = 0; col < numCol; col++) {
-                if (matrix[row][col] == 0) {
-                    count += 1;
-//                    System.out.print(" " + count);
-                } else {
-                    count = 0;
-//                    System.out.print(" " + count);
-                }
+            colPos = Arrays.binarySearch(matrix[row], 0);
+            if (colPos > 0) {
+                colZeroSum++;
             }
-            if (count == numCol) {
-                for (int i = 0; i < numRow; i++) {
-                    for (int j = 0; j < numCol; j++) {
-                        if (matrix[i][j] == 0) {
-                            matrixOut[i][j] = matrix[i + 1][j];
-                        } else {
-                            matrixOut[i][j] = matrix[i][j];
-                        }
+        }
+
+        if (colZeroSum == numCol) {
+            for (int row = 0; row < numRow; row++) {
+                for (int col = 0; col < numCol; col++) {
+                    if (col == colPos) {
+                        matrixOut[row][col] = matrix[row][col + 1];
+                    } else {
+                        matrixOut[row][col] = matrix[row][col];
                     }
                 }
-                numRow -= 1;
             }
+            numCol -= 1;
+        } else {
+            for (int row = 0; row < numRow; row++) {
+                for (int col = 0; col < numCol; col++) {
+                    matrixOut[row][col] = matrix[row][col];
+                }
+            }
+        }
+
+        int rowPos = 0;
+        int rowSum = 0;
+        int rowZeroSum;
+        for (int row = 0; row < numRow; row++) {
+            rowZeroSum = 0;
+            for (int col = 0; col < numCol; col++) {
+                if (matrixOut[row][col] == 0) {
+                    rowZeroSum++;
+                }
+            }
+            if (rowZeroSum == numCol) {
+                rowPos = row;
+                rowSum = rowZeroSum;
+            }
+        }
+
+        if (rowSum == numCol) {
+            for (int row = 0; row < numRow; row++) {
+                for (int col = 0; col < numCol; col++) {
+                    if (row == rowPos) {
+                        finalMatrix[row] = matrixOut[row + 1];
+                    }
+                    else {
+                        finalMatrix[row][col] = matrixOut[row][col];
+                    }
+                }
+            }
+            numRow -= 1;
         }
 
         for (int row = 0; row < numRow; row++) {
             for (int col = 0; col < numCol; col++) {
-                System.out.printf("%3d", matrixOut[row][col]);
+                System.out.printf("%3d", finalMatrix[row][col]);
             }
             System.out.println();
         }
-
     }
 }
